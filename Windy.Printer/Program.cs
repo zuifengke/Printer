@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Heren.Common.Libraries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,9 +14,10 @@ namespace Windy.Printer
         [STAThread]
         static void Main()
         {
+            LogManager.Instance.TextLogOnly = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }
