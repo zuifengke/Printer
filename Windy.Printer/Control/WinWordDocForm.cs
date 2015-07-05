@@ -8,10 +8,11 @@ using System.Windows.Forms;
 using Heren.Common.DockSuite;
 using Heren.Common.Libraries;
 using Windy.Printer.DockForms;
+using Windy.Printer.Utility;
 
 namespace Windy.Printer.Control
 {
-    internal partial class WinWordDocForm : DockContentBase
+    internal partial class WinWordDocForm : DockContentBase,IDocument
     {
 
         public WinWordDocForm()
@@ -30,9 +31,11 @@ namespace Windy.Printer.Control
         public short OpenDocument(string szFilePath)
         {
             this.winWordCtrl1.OpenDocument(szFilePath);
+            this.m_szFilePath = szFilePath;
             return SystemConst.ReturnValue.OK;
-        }
 
+        }
+        private string m_szFilePath = string.Empty;
         /// <summary>
         /// 关闭当前文档
         /// </summary>
@@ -47,6 +50,11 @@ namespace Windy.Printer.Control
         private void WinWordDocForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.CloseDocument();
+        }
+
+        public string GetFileFullPath()
+        {
+            return this.m_szFilePath;
         }
     }
 }

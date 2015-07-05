@@ -11,7 +11,7 @@ using Windy.Printer.DockForms;
 
 namespace Windy.Printer.Control
 {
-    internal partial class PdfForm : DockContentBase
+    internal partial class PdfForm : DockContentBase,IDocument
     {
 
         public PdfForm()
@@ -21,7 +21,7 @@ namespace Windy.Printer.Control
             this.DockAreas = DockAreas.Document;
           
         }
-
+        private string m_szFileFullName = string.Empty;
         /// <summary>
         /// 打开指定的Word文档
         /// </summary>
@@ -30,6 +30,7 @@ namespace Windy.Printer.Control
         public short OpenDocument(string szFilePath)
         {
             axAcroPDF1.LoadFile(szFilePath);
+            this.m_szFileFullName = szFilePath;
             return SystemConst.ReturnValue.OK;
         }
 
@@ -45,6 +46,12 @@ namespace Windy.Printer.Control
         private void WinWordDocForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.CloseDocument();
+        }
+
+
+        public string GetFileFullPath()
+        {
+            return this.m_szFileFullName;
         }
     }
 }
